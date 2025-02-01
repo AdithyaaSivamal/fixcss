@@ -1,85 +1,118 @@
-nav {
-    &.primary-navigation {
-      margin: 0 auto;
-      display: block;
-      
-      text-align: center;
-      font-size: 16px;
+nav.primary-navigation {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 16px;
   
-      ul li {
-        list-style: none;
-        margin: 0 auto;
-        border-left: 2px solid #01A89E;
-        display: inline-block;
-        padding: 0 30px;
-        position: relative;
-        text-decoration: none;
-        text-align: center;
-        font-family: arvo;
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: inline-flex;
+    }
+  
+    ul li {
+      position: relative; 
+      padding: 0 30px;
+      border-left: 2px solid #01A89E;
+      font-family: arvo;
+  
+      &:first-child {
+        border-left: none; 
       }
   
-      li a {
+      a {
         color: black;
+        text-decoration: none;
+        &:hover {
+          color: #01A89E;
+        }
       }
   
-      li a:hover {
-        color: #01A89E;
-      }
-  
-      li:hover {
+      &:hover {
         cursor: pointer;
       }
   
-      ul li ul {
+      
+      ul {
+        position: absolute; 
+        top: 100%;         
+        left: 0;
+        min-width: 200px;  
+        background: white;
+        padding: 1rem 0;   
+        margin: 0;
+        box-shadow: 0 3px 5px -1px #ccc;
+  
         visibility: hidden;
         opacity: 0;
-        position: absolute;
-  padding-left: 0;
-        left: 0;
         display: none;
-        background: white;
+        transition: opacity 0.2s ease-in-out;
+        z-index: 999;      
+  
+        li {
+          border: none;     
+          margin: 0;
+          padding: 0.5rem 1.5rem;
+  
+          a:hover {
+            padding-left: 10px;
+            border-left: 2px solid #01A89E;
+            transition: all 0.3s ease;
+          }
+        }
       }
-
-
-      ul li:hover > ul,
-      ul li ul:hover {
+  
+      
+      &:hover > ul,
+      ul:hover {
         visibility: visible;
         opacity: 1;
         display: block;
-        min-width: 250px;
-        text-align: left;
-        padding-top: 20px;
-        box-shadow: 0px 3px 5px -1px #ccc;
       }
+  
 
-      
+      ul li {
+        position: relative;
   
-      ul li ul li {
-        clear: both;
-        width: 100%;
-        text-align: left;
-        margin-bottom: 20px;
-        border-style: none;
-      }
-  
-      ul li ul li a:hover {
-        padding-left: 10px;
-        border-left: 2px solid #01A89E;
-        transition: all 0.3s ease;
+       
+        ul {
+          top: 0;
+          left: 100%;       
+          margin-left: 1rem;
+          min-width: 180px; 
+        }
       }
     }
   }
   
-  a {
-  
-      text-decoration: none;
-  
-      &:hover {
-          color: #01A89E;
+  /* 
+    RESPONDING TO SMALL SCREENS:
+    Often you’ll stack everything vertically. 
+    The simplest approach is to remove absolute positioning
+    so submenus appear in a flow one beneath the other.
+  */
+  @media (max-width: 768px) {
+    nav.primary-navigation {
+      ul {
+        display: block;
       }
-   
+      
+      ul li {
+        display: block;
+        border-left: none;
+        border-bottom: 2px solid #01A89E; /* optional bottom border, looks better ig */
+        padding: 0.5rem 1rem;
+  
+        /* For nested ULs, remove absolute to let them flow vertically */
+        ul {
+          position: static;
+          visibility: visible;
+          opacity: 1;
+          display: block;
+          box-shadow: none;
+          margin-left: 0;
+        }
+      }
+    }
   }
-  
-   ul li ul li a { transition: all 0.5s ease; }
-  
   
